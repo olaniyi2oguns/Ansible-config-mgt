@@ -1,0 +1,49 @@
+---
+- name: update web, and nfs servers
+  hosts: webservers, nfs
+  remote_user: ec2-user
+  become: yes
+  become_user: root
+  tasks:
+    - name: ensure wireshark is at the latest version
+      yum:
+        name: wireshark
+        state: latest
+
+- name: installing git on web servers
+  hosts: webservers
+  remote_user: ec2-user
+  become: yes
+  become_user: root
+  tasks:
+    - name: installing git on weberservers
+      yum: 
+        name: git
+        state: present
+
+- name: update DB and LB server
+  hosts: db, lb
+  remote_user: ubuntu
+  become: yes
+  become_user: root
+  tasks:
+    - name: Update apt repo
+      apt: 
+        update_cache: yes
+
+    - name: ensure wireshark is at the latest version
+      apt:
+        name: wireshark
+        state: latest
+
+- name: install git on DB and LB servers
+  hosts: db, lb
+  remote_user: ubuntu
+  become: yes
+  become_user: root
+  tasks:
+    - name: install git
+      apt: 
+        name: git
+        state: present
+
