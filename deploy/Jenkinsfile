@@ -1,13 +1,59 @@
 pipeline {
- agent any
+    agent any
 
   stages {
-    stage ('Builds'){
+
+    stage('initial cleanup') {
       steps {
-       script {
-          sh 'echo "Building stage"'
-          }  
-      }      
+       dir("${WORKSPACE}") {
+	    deleteDir()
+
+	   }
+      }
+    }
+    stage('Build') {
+      steps {
+        script {
+          sh 'echo "Building Stage"'
+        }
+      }
+    }
+
+    stage('Test') {
+      steps {
+        script {
+          sh 'echo "Testing Stage"'
+        }
+      }
+    }
+    
+   stage('packaging') {
+      steps {
+        script {
+          sh 'echo "Packaging Stage"'
+        }
+      }
+    }
+
+   stage('Deploy') {
+      steps {
+        script {
+          sh 'echo "Deploying Stage"'
+        }
+      }
+    }
+
+  stage('Deploy') {
+      steps {
+        script {
+          sh 'echo "Deploying Stage"'
+        }
+      }
+    }
+  stage('Clean Up') {
+      steps {
+        cleanWs()
+      }
     }
   }
 }
